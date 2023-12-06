@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Anuncio_achado {
+  id                  Int       @id @default(autoincrement())
+  data_achados        DateTime? @db.Date
+  especie_achados     String?   @db.VarChar(20)
+  sexo_achados        Boolean?
+  descricao_achados   String?   @db.VarChar(400)
+  foto_achados        String?   @db.VarChar(50)
+  localizacao_achados String?   @db.VarChar(400)
+  cod_usuario         Int?
+
+  @@map("anuncio_achados")
+}
+
+model Anuncio_perdido {
+  id                     Int       @id @default(autoincrement())
+  data_perdido           DateTime? @db.Date
+  nome_animal            String?   @db.VarChar(50)
+  especie_perdidos       String?   @db.VarChar(50)
+  sexo_perdidos          Boolean?
+  descricao              String?   @db.VarChar(400)
+  foto_perdidos          String?   @db.VarChar(50)
+  localizacao_aproximada String?   @db.VarChar(400)
+  cod_usuario            Int?
+
+  @@map("anuncio_perdidos")
+}
+
+model User {
+  id            Int     @id @default(autoincrement())
+  email         String  @db.VarChar(255)
+  password_hash String  @db.VarChar(255)
+  full_name     String  @db.VarChar(255)
+  cellphone     String? @db.VarChar(15)
+
+  @@unique(fields: [email])
+  @@map("users")
+}
